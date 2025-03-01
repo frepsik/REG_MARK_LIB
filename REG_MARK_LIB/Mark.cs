@@ -32,22 +32,21 @@
             /// <param name="mark2">Второй номер</param>
             /// <returns>Больше\меньше</returns>
             public static bool operator <(MarkReg mark1, MarkReg mark2)
-            {   //Проверка на равно, буквы серии и номер
-                if (mark1.FirstLetter > mark2.FirstLetter || mark1.FirstLetter == mark2.FirstLetter)
-                {
-                    if (mark1.Number > mark2.Number || mark1.Number == mark2.Number)
-                    {
-                        if (mark1.SecondLetter > mark2.SecondLetter || mark1.SecondLetter == mark2.SecondLetter)
-                        {
-                            if (mark1.ThirdLetter > mark2.ThirdLetter || mark1.ThirdLetter == mark2.ThirdLetter)
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                }
+            {   
+                //Проверка на равно, буквы серии и номер
+                if (mark1.FirstLetter > mark2.FirstLetter) return false;
+                if (mark1.FirstLetter < mark2.FirstLetter) return true;                
 
-                return true;
+                if (mark1.SecondLetter > mark2.SecondLetter) return false;
+                if (mark1.SecondLetter < mark2.SecondLetter) return true;
+
+                if (mark1.ThirdLetter > mark2.ThirdLetter) return false;
+                if (mark1.ThirdLetter < mark2.ThirdLetter) return true;
+
+                if (mark1.Number > mark2.Number) return false;
+                if (mark1.Number < mark2.Number) return true;
+
+                return false;
             }
 
 
@@ -60,20 +59,19 @@
             public static bool operator >(MarkReg mark1, MarkReg mark2)
             {
                 //Проверка на равно, буквы серии и номер
-                if (mark1.FirstLetter < mark2.FirstLetter || mark1.FirstLetter == mark2.FirstLetter)
-                {
-                    if (mark1.Number < mark2.Number || mark1.Number == mark2.Number)
-                    {
-                        if (mark1.SecondLetter < mark2.SecondLetter || mark1.SecondLetter == mark2.SecondLetter)
-                        {
-                            if (mark1.ThirdLetter < mark2.ThirdLetter || mark1.ThirdLetter == mark2.ThirdLetter)
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                }
-                return true;
+                if (mark1.FirstLetter < mark2.FirstLetter) return false;
+                if (mark1.FirstLetter > mark2.FirstLetter) return true;
+
+                if (mark1.SecondLetter < mark2.SecondLetter) return false;
+                if (mark1.SecondLetter > mark2.SecondLetter) return true;
+
+                if (mark1.ThirdLetter < mark2.ThirdLetter) return false;
+                if (mark1.ThirdLetter > mark2.ThirdLetter) return true;
+
+                if (mark1.Number < mark2.Number) return false;
+                if (mark1.Number > mark2.Number) return true;
+
+                return false;
             }
 
             /// <summary>
@@ -191,10 +189,10 @@
             return new String(resultMarkReg);
         }
 
-        public List<char> SeriaLetterEnglish { get => seriaLetterEnglish; set => seriaLetterEnglish = value; }
-        public List<string> Regions { get => regions; set => regions = value; }
-        public List<char> SeriaLetterRussian { get => seriaLetterRussian; set => seriaLetterRussian = value; }
-        public Dictionary<char, char> DictonaryRussianAndEnglishLetters { get => dictonaryRussianAndEnglishLetters; set => dictonaryRussianAndEnglishLetters = value; }
+        private List<char> SeriaLetterEnglish { get => seriaLetterEnglish; set => seriaLetterEnglish = value; }
+        private List<string> Regions { get => regions; set => regions = value; }
+        private List<char> SeriaLetterRussian { get => seriaLetterRussian; set => seriaLetterRussian = value; }
+        private Dictionary<char, char> DictonaryRussianAndEnglishLetters { get => dictonaryRussianAndEnglishLetters; set => dictonaryRussianAndEnglishLetters = value; }
 
         /// <summary>
         /// Метод проверяет номерной знак, на возможность существования

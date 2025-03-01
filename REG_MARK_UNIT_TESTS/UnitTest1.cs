@@ -50,7 +50,7 @@ namespace REG_MARK_UNIT_TESTS
         [TestMethod]
         public void CheckMark_IsFalse_CorrectWorkValidLengthMark()
         {
-            String mark = "À913ÀÌ252";
+            String mark = "À913ÀÌ2525";
             Boolean actualValue = markObj.CheckMark(mark);
             Assert.IsFalse(actualValue);
         }
@@ -69,6 +69,91 @@ namespace REG_MARK_UNIT_TESTS
             String? mark = null;
             Boolean actualValue = markObj.CheckMark(mark);
             Assert.IsFalse(actualValue);
+        }
+
+        [TestMethod]
+        public void Test_AreEqual_GetNextMarkAfter_LetterWrapAround()
+        {
+            string mark = "Õ999ÕÕ252";
+
+            string actualValue = markObj.GetNextMarkAfter(mark);
+            string expectedValue = "À001ÀÀ252";
+            
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+
+        [TestMethod]
+        public void Test_AreEqual_GetNextMarkAfter_NumberEqualTo999()
+        {
+            string mark = "À999ÀÌ252";
+
+            string actualValue = markObj.GetNextMarkAfter(mark);
+            string expectedValue = "À001ÀÍ252";
+
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestMethod]
+        public void Test_AreEqual_GetNextMarkAfterInRange_ValidRange()
+        {
+            string prevMark = "À001ÀÌ252";
+            string rangeStart = "À001ÀÌ252";
+            string rangeEnd = "À005ÀÌ252";
+
+            string actualValue = markObj.GetNextMarkAfterInRange(prevMark, rangeStart, rangeEnd);
+            string expectedValue = "À002ÀÌ252";
+
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestMethod]
+        public void Test_AreEqual_GetNextMarkAfterInRange_OutOfRange()
+        {
+            string prevMark = "À999ÀÌ252";
+            string rangeStart = "À001ÀÌ252";
+            string rangeEnd = "À005ÀÌ252";
+
+            string actualValue = markObj.GetNextMarkAfterInRange(prevMark, rangeStart, rangeEnd);
+            string expectedValue = "out of stock";
+
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestMethod]
+        public void Test_AreEqual_GetCombinationsCountInRange_ValidRange()
+        {
+            string mark1 = "À001ÀÌ252";
+            string mark2 = "À005ÀÌ252";
+
+            int actualValue = markObj.GetCombinationsCountInRange(mark1, mark2);
+            int expectedValue = 5;
+
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestMethod]
+        public void Test_AreEqual_GetCombinationsCountInRange_SingleNumber()
+        {
+            string mark1 = "À001ÀÌ252";
+            string mark2 = "À001ÀÌ252";
+
+            int actualValue = markObj.GetCombinationsCountInRange(mark1, mark2);
+            int expectedValue = 1;
+
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestMethod]
+        public void Test_AreEqual_GetCombinationsCountInRange_EmptyRange()
+        {
+            string mark1 = "À999ÀÌ252";
+            string mark2 = "À001ÀÌ252";
+
+            int actualValue = markObj.GetCombinationsCountInRange(mark1, mark2);
+            int expectedValue = 0;
+
+            Assert.AreEqual(expectedValue, actualValue);
         }
     }
 }
