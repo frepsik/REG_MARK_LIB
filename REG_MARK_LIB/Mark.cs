@@ -340,9 +340,9 @@
         /// <summary>
         /// Метод, принимает два номера и определяет количество номеров между (включая границы)
         /// </summary>
-        /// <param name="mark1"></param>
-        /// <param name="mark2"></param>
-        /// <returns></returns>
+        /// <param name="mark1">Номер 1</param>
+        /// <param name="mark2">Номер 2</param>
+        /// <returns>Количетсво возможных номер в диапазоне</returns>
         public int GetCombinationsCountInRange(String mark1, String mark2)
         {
             if (CheckMark(mark1) && CheckMark(mark2))
